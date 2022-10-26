@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <div class="node-view">
+        <ri-node node="node"></ri-node>
+    </div>
+    <h3 class="panel-title">Building</h3>
+  </div>
+
+  <div class="panel-body">
+    <div ng-repeat="need in node.needs" style="display:flex;margin:5px">
+        <resource-icon resource="need.resource"></resource-icon>
+        {{'+'.repeat(need.weight)}}
+    </div>
+  </div>
+</div>
