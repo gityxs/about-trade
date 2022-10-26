@@ -1,0 +1,81 @@
+<div class="panel panel-default" id="market-details">
+    <div class="panel-heading">
+      <div class="node-view">
+        <ri-node node="node"></ri-node>
+      </div>
+      <h3 class="panel-title">Market</h3>
+      <div class="node-status" style="line-height: 1.1;">
+        <small style="font-size: 75%;"><em>Population</em></small>
+        <div style="text-align: center;font-size: 24px;">{{node.population}}</div>
+      </div>
+    </div>
+    <div class="panel-body">
+<!--       <div>
+        <div class="btn-group pull-right" role="group">
+          <button class='btn btn-default btn-sm'><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> upgrade</button>
+          <button class='btn btn-default btn-sm'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> remove</button>
+        </div>
+      </div> -->
+      <!-- <h4>Population : {{node.population}}</h4> -->
+      <small><em>Satisfaction</em></small>
+      <uib-progressbar max="100" class="active" value="node.satisfaction"></uib-progressbar>
+      <!-- Satisfaction <uib-progressbar max="100" class="active" value="node.satisfaction">Pouetpore</uib-progressbar> -->
+      <div style="overflow:auto">
+          <table class="table market-resources">
+            <thead>
+              <tr>
+                  <th>stock</th>
+                  <th></th>
+                  <!-- <th>stock</th> -->
+                  <th>price</th>
+                  <th>need</th>
+                  <th>demand</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in node.itemList">
+                <td>
+                  <div style="margin-bottom:-5px">{{item.sellerQueue.length||'-'}}</div>
+                  <div>
+                    <span ng-if="item.localdemand" class="glyphicon glyphicon-arrow-right pull-left" aria-hidden="true" uib-tooltip="local demand" tooltip-placement="right"></span>
+                    <!-- <span style="">{{item.sellerQueue.length}}</span> -->
+                    <span ng-if="item.localsupply" class="glyphicon glyphicon-arrow-left pull-right" aria-hidden="true" uib-tooltip="local production" tooltip-placement="right"></span>
+                  </div>
+                </td>
+                <!-- <td><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></td> -->
+                <td>
+                  <resource-icon resource="item.resource"></resource-icon>
+                </td>
+                <!-- <td>{{item.sellerQueue.length}}</td> -->
+                <td>
+                  <span ng-style="{color:item.pricePercentVariation<0?'blue':item.pricePercentVariation>0?'gold':'inherit'}">{{item.currentPrice}}</span>
+                  <span ng-if="item.trend" ng-class="'glyphicon-triangle-'+(item.trend<0?'bottom':'top')" class="glyphicon" aria-hidden="true"></span>
+                  ({{item.resource.basePrice}})
+                </td>
+                <td>
+                  <uib-progressbar max="100" class="progress-striped active" value="item.needCounter"></uib-progressbar>
+                  <!-- <uib-progressbar ng-if="item.saturatedDemand" max="100" class="progress-striped" type="danger" value="100" title="Too many demands"></uib-progressbar> -->
+                </td>
+                <td>{{item.buyerQueue.length||'-'}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <h4>Traders : {{node.traders.length}}</h4>
+      <div class="traders-list list-group" style="overflow:auto">
+        <div class="list-group-item" ng-repeat="trader in node.traders">
+          <h5 class="list-group-item-heading">{{trader.name}}</h5>
+
+          <div class="clearfix">
+            <resource-icon ng-repeat="resource in trader.orders['sell'] track by $index" resource="resource" class="slot sell" uib-tooltip="Try to sell" tooltip-placement="left"></resource-icon>
+            <resource-icon ng-repeat="resource in trader.orders['buy'] track by $index" resource="resource" class="slot buy" uib-tooltip="Try to buy" tooltip-placement="left"></resource-icon>
+          </div>
+
+<!--      <div>
+            <button class="btn btn-default btn-xs" ng-click="trader.actions.clearAll()" uib-tooltip="Throw resources away, cancel orders and leave the market" tooltip-placement="left">Clear</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+</div>

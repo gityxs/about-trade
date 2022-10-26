@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+      <div class="node-view">
+        <ri-node node="node"></ri-node>
+      </div>
+      <h3 class="panel-title">Workshop</h3>
+      <h5 class="node-status" style="text-align:right">
+        <small>{{node.owner?'owned':'independent'}}</small>
+        <div ng-if="node.owner" uib-tooltip="balance" tooltip-placement="left" style="border: 1px solid #ddd;padding: 5px;margin:1px;text-align:center;font-size:12px">
+          {{node.balance>0?'+':''}}{{node.balance}}
+        </div>
+
+      </h5>
+  </div>
+
+  <div class="panel-body">
+      <table class="table table-condensed centered">
+        <tr ng-repeat="product in node.products">
+          <td syle="padding-right:0;padding-left:0">
+            <span ng-if="product==node.currentProduct" ng-class="{'glyphicon-hourglass':!node.producing, 'glyphicon-cog':node.producing}" class="glyphicon"  uib-tooltip="{{node.producing?'working':'waiting resources'}}" tooltip-placement="right" aria-hidden="true"></span>
+          </td>
+          <td>
+            <div style="display:flex;justify-content:space-around;">
+              <div ng-repeat="need in product.resource.neededResources">
+                <resource-icon resource="need.resource"></resource-icon>
+                <span>{{node.stock[need.resource.name]}}/{{need.quantity}}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <uib-progressbar max="product.resource.productionTime" class="progress-striped active" value="product.productionProgress" style="margin-bottom:0">
+              <span style="color:white; white-space:nowrap;">{{product.productionProgress}} / {{product.resource.productionTime}}</span>
+            </uib-progressbar>
+            <span uib-tooltip="You must own the workshop to change mode" tooltip-enable="!node.owner">
+              <input type="radio" ng-model="product.mode" value="off" ng-disabled="!node.allowControl()" ng-change="node.onModeChanged()" uib-tooltip="turn off" tooltip-placement="bottom"/>
+              <input type="radio" ng-model="product.mode" value="auto" ng-disabled="!node.allowControl()" ng-change="node.onModeChanged()" uib-tooltip="mode auto" tooltip-placement="bottom"/>
+              <input type="radio" ng-model="product.mode" value="on" ng-disabled="!node.allowControl()" ng-change="node.onModeChanged()" uib-tooltip="turn on" tooltip-placement="bottom"/>
+            </span>
+          </td>
+          <td><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
+          <td>
+            <resource-icon resource="product.resource" class="centered-icon"></resource-icon>
+            <span style="color:grey;font-size:12px">{{product.mode}}</span>
+          </td>
+        </tr>
+      </table>
+
+      <div ng-if="!node.profitable" class="alert alert-warning" role="alert">
+        <strong>Stopped!</strong> Not profitable.
+      </div>
+
+      <div ng-if="node.owner">
+        <hr/>
+        <button class="btn btn-default btn-sm pull-right" ng-click="main.removeNode(node)">Destroy</button>
+      </div>
+
+      <div>
+        <hr/>
+        <small><em>In 'auto' mode workshop produces only when it is profitable. If there are several production lines in 'auto' or 'on' mode then the most profitable is selected.</em></small>
+      </div>
+  </div>
+</div>
