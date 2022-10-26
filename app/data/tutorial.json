@@ -1,0 +1,141 @@
+{"steps":[
+{
+    "intro": "<h3>Welcome!</h3><hr/><p>This is an ongoing game focused on market systems and trade mechanics (wow, sexy).</p><p>Any help and feedback is welcome :)</p><hr/>Take a tour and have fun if you can"
+},
+{
+    "element": "#pop-needs",
+    "intro": "These are the resources that the population needs.<hr/>We have to create a market and provide both purple and orange resources to bring people in.",
+    "position": "right"
+},
+{
+    "element": "#world-view",
+    "intro": "This is the world map.<hr/>You can move by clicking and dragging or zoom using the mouse wheel",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "<p>You can see some resource sites on the map.</p><p><b>Now, find and zoom on a purple one</b>.</p>",
+    "position": "left"
+},
+{
+    "element": "#build-market-list",
+    "intro": "<p>We are going to build a market.</p><p><b>Click on the market to select it</b>.</p>",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "<p><b>Place the market near the purple site</b>.</p><p>You must see a dashed line indicating the connection. Click to build.<p>",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "Great. <b>Now, find and zoom on an orange site</b>.",
+    "position": "left"
+},
+{
+    "element": "#build-market-list",
+    "intro": "<b>Click on the market to select it</b>.",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "<b>Place the market close to the orange site so they are connected</b>.",
+    "position": "left"
+},
+{
+    "element": "#time-control",
+    "intro": "You can control the course of time here.<hr/><p>Step by step or auto run. You can change the auto run speed by clicking on the speed indicator.</p><p><b>Go to the next day</b>.</p>",
+    "position": "bottom"
+},
+{
+    "intro": "<h4>Exploitation</h4><hr/><p>Each day, resource sites connected to a market will work on exploiting resource. And when they finished, they put a new resource on sale in the market.</p><p>If there is stock on the market but no buyer then the price of the resource will begin to decrease.</p>"
+},
+{
+    "element": "#details-container",
+    "intro": "<p>You can see the details of the selected element here.<p/><p>It's an important source of information, for example to monitor the activity of an exploitation or to know the supply and demand in a market.</p>",
+    "position": "right"
+},
+{
+    "intro": "<h4>Trade route</h4><hr/>Now we are going to define a trade route to buy orange resources on a market and sell them to the other one",
+    "position": "right"
+},
+{
+    "element": "#traderoute-menu-heading",
+    "intro": "<b>Select the Trade Routes menu</b>",
+    "position": "bottom"
+},
+{
+    "element": "#routes-control",
+    "intro": "<b>Create a new route by clicking on the Add button</b><hr/>The route is created with a first step selected by default. A route step defines in which market to go and which resources to buy and sell.",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "<p>To associate a market with the selected step simply click on it.</p><p><b>Select the market connected to the orange exploitation</b>.</p>",
+    "position": "right"
+},
+{
+    "element": "#selectedstep-view",
+    "intro": "<p><b>Click 3 times on the orange resource in the market resources list</b>.</p><p>By doing this you tell traders to leave the market with these 3 resources, meaning buying them.</p><hr><i>Hint: to cancel an order click on the resource slot<i>",
+    "position": "left"
+},
+{
+    "element": "#add-routestep-button",
+    "intro": "<b>Add a new step to the route</b>.",
+    "position": "left"
+},
+{
+    "element": "#world-view",
+    "intro": "<b>Click on the market connected to the purple resource</b> to associate it with the step",
+    "position": "right"
+},
+{
+    "element": "#selectedstep-view",
+    "intro": "<p><b>Don't touch anything</b>.</p><p>By leaving the slots empty you tell traders to leave the market without resource, meaning selling everything they have.</p>",
+    "position": "left"
+},
+{
+    "element": "#selectedroute-name",
+    "intro": "<b>Name the route 'Orange'</b> to find it more easily.",
+    "position": "left"
+},
+{
+    "element": "#trader-menu-heading",
+    "intro": "<p>Almost done!</p><p>We are going to hire a trader to follow our trade route.</p><p><b>Select the Traders menu</b>.</p>",
+    "position": "left"
+},
+{
+    "element": "#traders-panel",
+    "intro": "<b>Hire a trader and assign him the trade route</b>.",
+    "position": "left"
+},
+{
+    "element": "#traders-panel",
+    "intro": "Great! The trader placed orders on the market according to the first step of the route and is waiting for them to be resolved.",
+    "position": "left"
+},
+{
+    "element": "#traders-panel",
+    "intro": "<p>When he bought the 3 resources, he tries to sell them to the second market.</p><p>Then he will start again from the first step.</p>",
+    "position": "left"
+},
+{
+    "element": "#time-control",
+    "intro": "We can switch to auto run mode until orange exploitation produces the 3 resources.",
+    "position": "bottom"
+},
+{
+    "intro": "<h4>Population</h4><hr/><p>Providing all the resources that population needs at a low price will increase satisfaction for the market.</p><p>If the satisfaction is high enough for long enough then the population will start to settle around the market and gradually generate demand.</p>"
+},
+{
+    "element": "#playermoney-indicator",
+    "intro": "Keep an eye on your money.<hr/><p>Buy cheap and sell to a higher price to earn money.</p><p>Manage supply and demand in markets to vary prices.</p>",
+    "position": "bottom"
+},
+{
+    "intro": "<h4>All done!</h4><hr/><p>Actually, there are many other things like workshops, demand buildings and new discoveries over time!</p><p>But that's it for now.</p>"
+},
+{
+    "intro": "<h4>I need you</h4><hr/>If you like it and want more, consider giving me a boost: comment, share, donate :)<hr/>Thanks!"
+}
+]}

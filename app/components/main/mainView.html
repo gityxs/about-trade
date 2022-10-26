@@ -1,0 +1,173 @@
+<div class="container-fluid flex-container full-height" 
+     ng-intro-options="main.IntroOptions"
+     ng-intro-method="main.startTutorial"
+     ng-intro-onbeforechange="main.BeforeChangeEvent">
+
+<style>
+    /* Toggle colorblind mode */
+    svg .node .resource-label-text {
+        display: {{main.colorblindMode?'initial':'none'}};
+    }
+
+    /* Toggle trade routes display */
+    svg .market-link {
+      display: {{main.displayTradeRoutes?'initial':'none'}};
+    }
+    svg .step-link {
+      stroke : {{main.displayTradeRoutes?'white':'black!important'}};
+    }
+</style>
+
+<div class="row" id="top-row">
+    <div class="col-md-3">
+    </div>
+    <!-- 
+    TIME
+    -->
+    <div class="col-md-3" id="time-control">
+        Day {{main.step}}
+        <button type="button" class="btn btn-default" ng-click="main.nextStep()">
+          <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+        </button>
+        <button ng-show="!main.running" type="button" class="btn btn-default" ng-click="main.run()">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </button>
+        <button ng-show="main.running" type="button" class="btn btn-default" ng-click="main.stop()">
+          <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+        </button>
+        <span ng-click="main.changeSpeed()" style="cursor:pointer">
+          x{{main.gameSpeedMult}}
+        </span>
+    </div>
+
+    <!-- MONEY -->
+    <div class="col-md-3">
+      <span id="playermoney-indicator" class="pull-right" style="padding-top:6px">
+        {{main.player.money}} coins
+        <!-- <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> -->
+      </span>
+    </div>
+
+    <div class="col-md-3">
+      <span uib-dropdown on-toggle="toggled(open)" class="pull-right" auto-close="outsideClick">
+        <a href id="simple-dropdown" uib-dropdown-toggle>
+          <!-- Menu <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> -->
+          <span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size:18px"></span>
+        </a>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-dropdown">
+          <li role="menuitem" ng-click="main.colorblindMode=!main.colorblindMode" uib-tooltip="Display resource symbols on nodes" tooltip-placement="bottom">
+            <a href>
+              <span class="glyphicon glyphicon-{{main.colorblindMode?'check':'unchecked'}}" aria-hidden="true"></span> Colorblind Mode
+            </a>
+          </li>
+          <li role="menuitem" ng-click="main.displayTradeRoutes=!main.displayTradeRoutes" uib-tooltip="Display all trade routes" tooltip-placement="bottom">
+            <a href>
+              <span class="glyphicon glyphicon-{{main.displayTradeRoutes?'check':'unchecked'}}" aria-hidden="true"></span> Display trade routes
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem" ng-click="main.restart()">
+            <a href><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> restart</a>
+          </li>
+        </ul>
+      </span>
+    </div>
+</div>
+<div class="row" id="main-row">
+
+    <div id="left-col" class="col-md-3 flex-container">
+
+        <!-- SELECTED NODE DETAILS -->
+<!--         <div class="col-md-12 ui-window" id="node-details" ng-show="main.focusNode">
+ -->
+
+        <div  id="details-container"
+              ng-show="main.focusNode"
+              ng-include="'app/components/ui/details/' + main.focusNode.constructor.name + '.html' | lowercase"
+              ng-repeat="node in [main.focusNode]"> <!-- THe ngRepeat is only used to init node and so have a shorter variable to manipulate in template (ngInit or onload not working as wanted) -->
+        </div>
+
+
+<!--         </div>
+ -->
+        <div id="pop-needs" ng-init="openPopNeedsPanel=true" ng-mouseenter="openPopNeedsPanel=true" ng-mouseleave="openPopNeedsPanel=false">
+          <div class="panel panel-default flex-container" >
+            <div class="panel-heading">
+              <h3 class="panel-title">Population needs<span ng-if="!openPopNeedsPanel" class="glyphicon glyphicon-chevron-up pull-right" aria-hidden="true"></span></h3>
+            </div>
+            
+            <div uib-collapse="!openPopNeedsPanel" class="panel-body">
+            <!-- <div class="panel-body"> -->
+              <div ng-repeat="need in main.populationNeeds" style="display:flex;margin:5px">
+                <div style="width:20px"><span ng-if="need.resource.isVital" class="glyphicon glyphicon-star" aria-hidden="true"></span></div>
+                <resource-icon resource="need.resource"></resource-icon>
+                <span>{{'+'.repeat(need.weight)}}</span>
+              </div>
+              <div style="margin-bottom:-10px;margin-top:15px">
+                <hr/>
+                <small><em>Provide all of <span class="glyphicon glyphicon-star" aria-hidden="true"></span> and at least all but one of the others to a market and population will grow.</em></small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    <!-- BOARD -->
+    <div class="col-md-6" id="world-view">
+        <ri-graph
+          conf="main.conf"
+          nodes="main.nodes"
+          onclick-ground="main.addNode(pos)"
+          model="main.ghost"
+          state="main.state"
+          agents="main.traders"
+          links="main.marketLinks"
+          onhover-node="main.showDetails(node)"
+          onclick-node="main.selectNode(node)"
+          api="main.worldView">
+        </ri-graph>
+    </div>
+
+    <!-- MENU -->
+    <div id="actions-menu" class="col-md-3 full-height ui-window">
+
+<!--         <uib-tabset type="pills">
+          <uib-tab heading="Default Size">Tab 1 content</uib-tab>
+          <uib-tab heading="Small Button" classes="btn-sm">Tab 2 content</uib-tab>
+        </uib-tabset> -->
+
+        <uib-tabset justified="true" type="pills" class="full-height flex-container">
+
+          <!-- BUILD NODES PANEL -->
+          <uib-tab index="0" id="build-menu-heading" heading="Build" select="main.menuSelected('build')">
+            <uib-tab-heading >
+              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            </uib-tab-heading>
+            <ng-include src="'app/components/ui/tabcontent_build.html'" ></ng-include>
+          </uib-tab>
+
+          <!-- TRADE ROUTE -->
+          <uib-tab index="1" id="traderoute-menu-heading" heading="Routes" select="main.menuSelected('routes')">
+            <uib-tab-heading>
+              <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+            </uib-tab-heading>
+            <ng-include src="'app/components/ui/tabcontent_traderoutes.html'" ></ng-include>
+          </uib-tab>
+
+          <!-- TRADERS  -->
+          <uib-tab index="2" id="trader-menu-heading" heading="Traders" select="main.menuSelected('traders')">
+            <uib-tab-heading>
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </uib-tab-heading>
+            <ng-include src="'app/components/ui/tabcontent_traders.html'" ></ng-include>
+          </uib-tab>
+        </uib-tabset>
+
+    </div>
+</div>
+<!-- <div class="row" id="foot-row">
+  <div class="col-md-12" id="message-box">
+  </div>
+</div> -->
+</div>

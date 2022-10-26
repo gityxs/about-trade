@@ -1,0 +1,59 @@
+<div ng-controller="RouteController as rc" class="flex-container full-height">
+  <h4 class="title">Trade routes</h4>
+  <div>
+    <br/>
+    <form class="form-inline" id="routes-control">
+      <select ng-model="rc.selectedRoute" ng-change="rc.routeChanged()" ng-options="route as route.name for route in rc.routes" class="form-control"></select>
+      <button class="btn btn-default" ng-click="rc.newRoute()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New route</button>
+    </form>
+    <hr/>
+  </div>
+  <div ng-show="rc.selectedRoute" class="flex-container full-height" style="overflow:hidden">
+    <div>
+      <form id="selectedroute-name" class="form-inline">
+        <label>Name</label>
+        <input type="text" ng-model="rc.selectedRoute.name" class="form-control"></input>
+      </form>
+      <br/>
+    </div>
+    <div class="list-group" style="overflow:auto">
+      <a class="list-group-item" ng-repeat="step in rc.selectedRoute.steps" ng-click="rc.selectedStep=step" ng-class="{active:step==rc.selectedStep}" id="{{rc.selectedStep==step?'selectedstep-view':''}}">
+        <h4 class="list-group-item-heading">
+          Step {{$index+1}}
+          <button ng-click="rc.removeSelectedRouteStep($index)" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </h4>
+        <span ng-if="step.market">
+          <small>Leave the market with:</small>
+          <div class="clearfix">
+            <div ng-repeat="slot in step.slots" ng-click="slot.resource=undefined" class="slot"  uib-tooltip="click to empty" tooltip-placement="right">
+              <resource-icon resource="slot.resource"></resource-icon>
+            </div>
+          </div>
+          <br/>
+        </span>
+        <div uib-collapse="rc.selectedStep!=step">
+          <!-- <div ng-if="!step.market" class="well well-sm bg-info">Select a market on the map</div> -->
+          <div ng-if="!step.market" class="alert alert-info" role="alert">Select a market on the map</div>
+          <div ng-if="step.market">
+            <small><em>Select market resources</em></small>
+            <table class="table table-condensed table-hover">
+                <tr ng-repeat="item in step.market.itemList" ng-click="rc.setSlot(item.resource)">
+                  <td>
+                    <div style="width:30px">
+                      <span ng-if="item.localdemand" class="glyphicon glyphicon-arrow-right pull-left" aria-hidden="true"></span>
+                      <span ng-if="item.localsupply" class="glyphicon glyphicon-arrow-left pull-right" aria-hidden="true"></span>
+                    </div>
+                  </td>
+                  <td><resource-icon resource="item.resource"></resource-icon></td>
+                  <td><span ng-style="{color:item.pricePercentVariation<0?'blue':item.pricePercentVariation>0?'gold':'inherit'}">{{item.currentPrice}}</span> ({{item.resource.basePrice}})</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div>
+      <button id="add-routestep-button" class="btn btn-default" ng-click="rc.addSelectedRouteStep()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add step</button>
+    </div>
+  </div>
+</div>

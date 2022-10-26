@@ -1,0 +1,76 @@
+<div class="flex-container">
+    <h4 class="title">Buildings</h4>
+    <uib-accordion close-others="true" id="models-panel">
+      <div uib-accordion-group heading="Market place" is-open="true" id="build-market-list">
+        <div>
+          <div class="list-group">
+            <button type="button" class="list-group-item" ng-repeat="model in main.nodeModels['markets']" ng-click="main.selectModel(model)" ng-class="{selected:model.selected,active:model.selected,disabled:model.isDisabled()}">
+              <div class="media-left">
+                <div class="node-view">
+                  <ri-node node="model.node"></ri-node>
+                </div>
+              </div>
+              <div class="media-body">
+                <h5 class="media-heading">{{model.node.name}} <small ng-if="model.price" class="price">{{model.price}} coins</small></h5>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div uib-accordion-group heading="Workshops" is-disabled="!main.nodeModels['workshops'].length">
+        <div>
+          <div class="list-group">
+            <button type="button" class="list-group-item" ng-repeat="model in main.nodeModels['workshops']" ng-click="main.selectModel(model)" ng-mouseenter="model.hovered=true" ng-mouseleave="model.hovered=false" ng-class="{selected:model.selected,active:model.selected,disabled:model.isDisabled()}">
+              <div class="media-left">
+                <div class="node-view">
+                  <ri-node node="model.node"></ri-node>
+                </div>
+              </div>
+              <div class="media-body">
+                <h5 class="media-heading"><small ng-if="model.price" class="price">{{model.price}} coins</small></h5>
+                <div  uib-collapse="!main.showModelDetails(model)">
+                  <table class="table table-condensed" style="margin-bottom:0">
+                    <tr ng-repeat="product in model.node.products">
+                      <td>
+                        <div style="display:flex">
+                          <div ng-repeat="need in product.resource.neededResources" style="display:flex">
+                            <resource-icon resource="need.resource"></resource-icon>
+                            <span>x{{need.quantity}}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></td>
+                      <td><resource-icon resource="product.resource"></resource-icon></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div uib-accordion-group heading="Demand buildings" is-disabled="!main.nodeModels['buildings'].length">
+        <div>
+          <div class="list-group">
+            <button type="button" class="list-group-item" ng-repeat="model in main.nodeModels['buildings']" ng-click="main.selectModel(model)" ng-mouseenter="model.hovered=true" ng-mouseleave="model.hovered=false" ng-class="{selected:model.selected,active:model.selected,disabled:model.isDisabled()}">
+              <div class="media-left">
+                <div class="node-view">
+                  <ri-node node="model.node"></ri-node>
+                </div>
+              </div>
+              <div class="media-body">
+                <h5 class="media-heading"><small ng-if="model.price" class="price">{{model.price}} coins</small></h5>
+                <div  uib-collapse="!main.showModelDetails(model)">
+                  <div ng-repeat="need in model.node.needs" style="display:flex">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    <resource-icon resource="need.resource"></resource-icon>
+                    {{'+'.repeat(need.weight)}}
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </uib-accordion>
+</div>

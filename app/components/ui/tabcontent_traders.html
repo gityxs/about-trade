@@ -1,0 +1,50 @@
+<div id="traders-panel" ng-controller="TraderController as tc" class="flex-container full-height">
+    <h4 class="title">Traders</h4>
+    <div>
+      <br/>
+      <button class="btn btn-default btn-lg" role="button" ng-click="tc.newTrader()" ng-class="{disabled:!tc.canHire()}">
+          <h5 style="margin:0">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hire trader <small class="price">{{tc.info.cost}} coins</small>
+          </h5>
+      </button>
+      <hr/>
+    </div>
+    <div class="list-group traders-list" style="height:100%;overflow:auto">
+      <a class="list-group-item" ng-repeat="trader in tc.traders" ng-click="tc.selectedTrader=trader" ng-class="{selected:trader==tc.selectedTrader}">
+        <div class="trader-heading">
+          <h4 class="list-group-item-heading">{{trader.name}}</h4>
+          
+          <span  style="border: 1px solid #ddd;padding: 5px;margin:1px">
+            <!-- <input type="text" ng-model="trader.balance" disabled> -->
+            <span uib-tooltip="balance" tooltip-placement="left">{{trader.balance>0?'+':''}}{{trader.balance}}</span>
+          </span>
+        </div>
+        <div>
+          <form class="form-inline">
+            <small><em>route</em></small>
+            <select ng-model="trader.route" ng-options="route as route.name for route in tc.routes" ng-change="trader.routeChanged()" class="form-control"></select>
+          </form>
+        </div>
+        <div uib-collapse="tc.selectedTrader!=trader">
+            <div ng-if="trader.resources.length">
+              <small style="font-size: 75%;"><em>Carried resources</em></small>
+              <div class="clearfix">
+                <div ng-repeat="resource in trader.resources track by $index" class="slot">
+                  <resource-icon resource="resource"></resource-icon>
+                </div>
+              </div>
+            </div>
+            <div ng-if="trader.orders['sell'].length||trader.orders['buy'].length" class="orders-list">
+              <div>
+                <small style="font-size: 75%;"><em>Waiting for</em></small>
+                <div ng-if="trader.state=='atMarket'" class="clearfix">
+                  <resource-icon ng-repeat="resource in trader.orders['sell'] track by $index" resource="resource" class="slot sell" uib-tooltip="Try to sell" tooltip-placement="right"></resource-icon>
+                  <resource-icon ng-repeat="resource in trader.orders['buy'] track by $index" resource="resource" class="slot buy" uib-tooltip="Try to buy" tooltip-placement="right"></resource-icon>
+                </div>
+              </div>
+              <div><button class="btn btn-default" ng-click="trader.clearAll()" uib-tooltip="Throw resources away, cancel orders and leave the market" tooltip-placement="left">Clear</button></div>
+            </div>
+        </div>
+      </a>
+    </div>
+</div>

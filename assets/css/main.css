@@ -1,0 +1,536 @@
+/*
+    Windows disposition
+*/
+
+html,
+body,
+.full-height {
+    height: 100%;
+}
+
+#top-row {
+    margin-top : 5px;
+    margin-bottom : 5px;
+    flex: 0 1 auto;
+}
+
+#main-row {
+    flex: 1 1 auto;
+    overflow: hidden;
+    height: 100%;
+}
+
+#foot-row {
+    flex: 0 1 auto;
+    /*border: 1px solid #ddd;*/
+    margin-bottom: 15px;
+}
+
+#message-box {
+    height: 50px;
+    border: 2px solid #444;
+}
+
+#main-row .ui-window {
+    padding-bottom : 20px;
+    margin-bottom: 10px
+}
+
+#left-col {
+    height : 100%;
+}
+
+#node-details {
+    /*height: 100%;*/
+    /*border: 1px solid #ddd;*/
+    overflow-y: auto;
+}
+
+#pop-needs {
+    flex: 0 0 auto;
+    /*border: 1px solid #ddd;*/
+    overflow-y: hidden;
+    margin-top: auto; /* Magic : push div to the bottom of flex container */
+}
+
+#pop-needs .panel-body.in {
+    overflow: auto;
+}
+#pop-needs .panel-body.in-add {
+    overflow: hidden;
+}
+
+#details-container {
+    /*height: 100%;*/
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+
+#details-container .panel,
+#details-container .panel-body {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    overflow: auto;
+}
+#details-container .panel-heading {
+    display: flex;
+    /*justify-content: space-between;*/
+    align-items: center;
+    padding: 5px;
+}
+#details-container .panel-heading .node-view {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+#details-container .panel-heading .node-status {
+    margin: auto;
+    margin-right: 0;
+    margin-top: 0;
+}
+
+#market-details .traders-list .list-group-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+#advances-modal .inline {
+   display: flex;
+   align-items: center;
+}
+
+#advances-modal .modal-body {
+    height: 50vh;
+    overflow: auto;
+}
+#advances-modal .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#advances-modal .panel-node .panel-heading {
+    padding: 5px;
+}
+#advances-modal .panel-heading .icon-resource {
+    margin-right: 10px;
+}
+#advances-modal .node-view {
+    width: 45px;
+    height: 45px;
+}
+#advances-modal .list-group {
+    margin-bottom: 0;
+}
+#advances-modal .glyphicon {
+    margin-left : 5px;
+    margin-right : 5px;
+}
+
+
+#actions-menu .title {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input[type="radio"]:focus,
+.uib-tab a {
+    outline : none;
+}
+
+.tab-content {
+    /*border: 1px solid #ddd;*/
+    border-top: none;
+    padding: 5px;
+}
+
+.tab-content,
+.tab-pane {
+    height: 100%;
+}
+
+.tab-content {
+    /*flex : 1 1 auto;*/
+    overflow: hidden;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.fixed-item {
+    flex: 0 1 auto;
+}
+
+.grow-item {
+    flex: 1 1 auto;
+}
+
+
+/*
+    Elements (custom bootstrap)
+*/
+
+.list-group-item.selected {
+    /*border: 2px solid #555;*/
+}
+
+a.list-group-item.selected:hover {
+    /*background-color : white;*/ 
+}
+
+.active small {
+    color: inherit;
+}
+
+/* Make the panel header full clickable */
+uib-accordion .panel-heading {
+        padding: 0;
+    }
+uib-accordion .panel-title a {
+    display: block;
+    padding: 10px 15px;
+}
+
+/* Make the panel body fit height and autoscroll */
+uib-accordion .panel-group {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+uib-accordion .panel-group .panel {
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+uib-accordion .panel-group .panel .panel-collapse.in {
+    overflow: auto;
+}
+uib-accordion .panel-group .panel .panel-collapse.in-add {
+    overflow: hidden;
+}
+
+/*
+    Graph
+*/
+
+svg {
+    stroke : #444;
+    fill : #444;
+}
+
+ri-graph svg {
+    /*background-color: #222831;*/
+    /*background-color: #F3F3F3;*/
+    border : 1px solid #DDD;
+    background-color: #444;
+}
+
+svg #world-ground {
+    fill-opacity : 1;
+    fill : white;
+    stroke-width : 5;
+}
+
+
+/* Nodes */
+
+
+svg .node {
+    stroke-width : 2;
+}
+
+svg .node .resource-label-text {
+    fill: white;
+    stroke : none;
+    font-size: 12px;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+}
+svg .node .resource-label-text.outline {
+    stroke : #444;
+    stroke-width: 1;
+}
+
+svg .market .center {
+    stroke-width : 4;
+    fill : white;
+}
+svg .market .area {
+    stroke : none;
+    fill : red;
+    fill-opacity : 0.2;
+    visibility: hidden;
+}
+
+svg .market.hovered .area,
+svg .market.highlighted .area {
+    visibility: visible;
+}
+svg .market .inner-decoration {
+    stroke-width : 4;
+    fill : white;
+    stroke-dasharray : 6 2;
+}
+
+svg .exploitation .g-arcs {
+    opacity: 0;
+    stroke-width : 1;
+}
+svg .exploitation.connected .g-arcs {
+    opacity: 1;
+}
+
+svg .node.working .g-arcs {
+    animation: rotate 10s linear infinite;
+}
+
+svg .node .symbol {
+    animation: rotate 10s linear infinite;
+}
+
+svg .house {
+    opacity: 0;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* graph elements */
+
+ri-graph .ghost .center {
+    fill-opacity : 0.3;
+    stroke : none;
+}
+ri-graph .ghost .area {
+    stroke-width : 2;
+    stroke-dasharray : 2;
+    fill-opacity : 0;
+}
+
+ri-graph .link {
+    stroke-width : 3;
+}
+
+ri-graph .ghost-link {
+    stroke-dasharray : 2;
+    stroke-width : 2;
+}
+
+ri-graph .houselinks-group .link {
+    stroke-width : 2;
+}
+
+ri-graph .step {
+    opacity: 1;
+    stroke: #222;
+    fill: #222;
+}
+
+ri-graph .step .highlight {
+    stroke-width : 5;
+}
+
+ri-graph .step .label {
+    text-anchor : middle;
+    font-size : 20px;
+    fill : white;
+}
+
+ri-graph .step .step-link {
+    stroke: white;
+    stroke-width : 3;
+    stroke-dasharray : 5;
+    animation: dash 2s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+ri-graph .agent {
+    /*stroke : black;*/
+    stroke-width : 3;
+    fill : white;
+}
+
+ri-graph .agent .resource{
+    /*stroke : black;*/
+    stroke-width : 1;
+}
+
+ri-graph .agent .agent-label,
+ri-graph .agent .agent-label-outline {
+    stroke : none;
+    fill : #444;
+    font-size : 12px;
+    font-weight: 700;
+}
+ri-graph .agent .agent-label-outline {
+    stroke : white;
+    stroke-width : 2;
+}
+
+ri-graph .house {
+    opacity: 1;
+    /*stroke: black;*/
+    stroke-width: 2;
+}
+
+ri-graph #selectednode-indicator circle {
+    stroke : black;
+    stroke-opacity : 0.2;
+    stroke-width : 8;
+    stroke-dasharray : 30 10;
+    fill: none;
+}
+ri-graph #selectednode-indicator circle:first-child {
+    animation: rotate 30s linear infinite;
+}
+ri-graph #selectednode-indicator circle:last-child {
+    animation: rotate 30s linear reverse infinite;
+    stroke-dasharray : 20 10;
+    display : none;
+}
+
+/*.animate-show.ng-hide {
+  transition: all linear 0.5s;
+  opacity : 0;
+}*/
+
+/*
+    Models
+*/
+
+/*#models-panel .node {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}*/
+#models-panel {
+    overflow: hidden;
+    height: 100%;
+}
+#models-panel .node-view {
+    width: 40px;
+    height: 40px;
+}
+
+#models-panel .list-group {
+    margin-bottom: 0;
+}
+
+#models-panel .media {
+    padding : 10px;
+    margin-top : 5px;
+}
+
+#models-panel .icon-resource {
+    margin-right : 2px;
+    margin-left : 2px;
+    /*width: 15px;
+    height: 15px;*/
+}
+
+#models-panel .list-group-item.disabled .price {
+    color: darkred;
+}
+
+#traders-panel .traders-list .trader-heading,
+#traders-panel .traders-list .orders-list
+ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/*
+    Resources
+*/
+
+.icon-resource {
+    width: 20px;
+    height: 20px;
+    border : 2px solid #555;
+    /*color : #555;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;*/
+    color : white;
+    text-shadow: -1px 0 #555, 0 1px #555, 1px 0 #555, 0 -1px #555;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centered-icon .icon-resource {
+    margin:auto;
+}
+
+#resources-panel .media {
+    margin-top : 5px;
+}
+
+.resource-stats {
+    margin-top : 10px;
+}
+
+.resource-stats .list-group-item {
+    padding: 2px 15px;
+}
+
+.badge.badge-alert {
+    background-color: #d9534f;
+}
+
+/*
+    Routes and Traders
+*/
+
+.slot {
+    margin : 0 2px;
+    /*border : 2px solid #555;*/
+    float : left;
+}
+
+.slot.sell .icon-resource {
+    border-color : red;
+}
+.slot.buy .icon-resource {
+    border-color : green;
+}
+
+/* Window */
+
+.table.centered {
+    text-align: center;
+}
+
+.table td div.centered {
+    display: inline-block;
+}
+
+.table.market-resources td,
+.table.market-resources th {
+    padding: 3px;
+    font-size: 12px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table.market-resources .progress {
+    margin-bottom: 0;
+}
